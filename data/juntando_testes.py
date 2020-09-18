@@ -9,7 +9,7 @@ def read_file_csv(file, plate_favorite):
         for row in csv_reader:
             if row[0] == plate_favorite:
                 filter_person.append(row)
-    
+
     return filter_person
 
 
@@ -33,8 +33,7 @@ def favorite_food(foods):
     return most_frequent_food
 
 
-def quantity_orders_same_food(foods, food_choose):
-    most_frequent_food = food_choose
+def quantity_orders_a_food(foods, food_choose):
     frequency = {'hamburguer': 0, 'pizza': 0, 'coxinha': 0, 'misto-quente': 0}
 
     for food in foods:
@@ -76,7 +75,7 @@ def analyse_log(path_to_file, plate_favorite, order, plates_orders, absent_perso
     filter_present_days = read_file_csv(path_to_file, absent_person)
 
     food_more_order = favorite_food(filter_plate_favorite)
-    food_order_total = quantity_orders_same_food(filter_quantity_order, order[1])
+    food_order_total = quantity_orders_a_food(filter_quantity_order, order[1])
     plates_not_orders = foods_not_orders(filter_plates_favorites)
     days_not_present = absent_days(filter_present_days)
 
@@ -85,5 +84,12 @@ def analyse_log(path_to_file, plate_favorite, order, plates_orders, absent_perso
     print(plates_not_orders)
     print(days_not_present)
 
+    with open('mkt_campaign.txt', 'w', newline='') as file:
 
-analyse_log('orders_1.csv', "maria", ["arnaldo", "misto-quente"], "joao", "joao")
+        file.write(f"O prato mais pedido por {plate_favorite}: {food_more_order}\n")
+        file.write(f"A quantidade de vezes que {order[0]} pediu {order[1]} foi: {food_order_total}\n")
+        file.write(f"O(A) {plates_orders} nunca pediu: {plates_not_orders}\n")
+        file.write(f"O(A) {absent_person} nunca foi na lanchonete no(s) dia(s): {days_not_present}\n")
+
+
+analyse_log('orders_1.csv', "maria", ["arnaldo", "hamburguer"], "joao", "joao")
