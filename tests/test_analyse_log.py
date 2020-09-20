@@ -1,9 +1,10 @@
-from unittest.mock import patch, mock_open
-from unittest import TestCase
+from unittest.mock import patch, mock_open, create_autospec, Mock
+
+# from unittest import TestCase
 from src.analyse_log import analyse_log
 
 
-class Test_Analyse_Log(TestCase):
+class Test_Analyse_Log:
 
     file_content_mock = """maria,hamburguer,terça-feira
 joao,hamburguer,terça-feira
@@ -20,15 +21,20 @@ arnaldo,misto-quente,terça-feira"""
 
     fake_file_path = "file/path/mock"
 
-    def test_analyse_log(self):
-        with patch(
-            "builtins.open", mock_open(read_data=self.file_content_mock)
-        ) as mock_file:
-            assert open(self.fake_file_path).read() == self.file_content_mock
-            mock_file.assert_called_with(self.fake_file_path)
+    def test_analyse_log_mocks(self):
+        mock_function = create_autospec(analyse_log, return_value="number one")
+        given = mock_function(1)
+        expected = "number one"
+        assert given == expected
 
-        expected = "sei lá!"
-        self.assertEqual(expected, actual)
+        # with patch(
+        #     "builtins.open", mock_open(read_data=self.file_content_mock)
+        # ) as mock_file:
+        #     assert open(self.fake_file_path).read() == self.file_content_mock
+        #     mock_file.assert_called_with(self.fake_file_path)
+
+        # expected = "sei lá!"
+        # self.assertEqual(expected, actual)
 
     # def __text_file_reader(self):
     #     with patch('builtins.open', mock_open(read_data=self.mock)) as m:

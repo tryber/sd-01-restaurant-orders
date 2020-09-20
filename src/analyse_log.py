@@ -1,6 +1,16 @@
 from csv import DictReader
 
 
+def f_frequency(keys, client, params_map_key):
+    frequency = {k: 0 for k in keys}
+    for all_days in client:
+        if all_days[params_map_key] not in frequency:
+            frequency[all_days[params_map_key]] = 1
+        else:
+            frequency[all_days[params_map_key]] += 1
+    return frequency
+
+
 def most_frequent_maria(client):
     most_frequent_lunch = client[0]["lunch"]
     frequency = {}
@@ -15,18 +25,8 @@ def most_frequent_maria(client):
     return most_frequent_lunch
 
 
-def f_frequency(keys, client, params_map_key):
-    frequency = {k: 0 for k in keys}
-    for all_days in client:
-        if all_days[params_map_key] not in frequency:
-            frequency[all_days[params_map_key]] = 1
-        else:
-            frequency[all_days[params_map_key]] += 1
-    return frequency
-
-
-def cont_frequent_arnaldo_lunch(keys, client, params_map_key):
-    frequency = f_frequency(keys, client, params_map_key)
+def cont_frequent_arnaldo_lunch(keys, client):
+    frequency = f_frequency(keys, client, "lunch")
     answer = ""
     for k, v in frequency.items():
         if k == "hamburguer":
@@ -43,10 +43,11 @@ def cont_frequent_joao(keys, client, params_map_key):
     return answer
 
 
-def txt_writing(text, file, path="data/mkt_campaign.txt"):
+def txt_writing(text, answer, path):
     with open(path, "a") as f:
-        f.write(f"{text} {file} \n")
-    print("Dados gravado com sucesso")
+        f.write(f"{text} {answer} \n")
+
+    return f.close()
 
 
 def array_of_client(array, cliente):
@@ -60,41 +61,88 @@ def reading_the_main_file(path):
         return [row for row in reader]
 
 
-def analyse_log(path):
-    all_clients = reading_the_main_file(path)
+def format_answer_per_costumer(
+    person,
+    path_reading,
+    path_write,
+):
 
-    maria = array_of_client(all_clients, "maria")
-    arnaldo = array_of_client(all_clients, "arnaldo")
-    joao = array_of_client(all_clients, "joao")
+    all_clients = reading_the_main_file(path_reading)
+
+    list_client = array_of_client(all_clients, person)
 
     all_lunch = list(set([row["lunch"] for row in all_clients]))
 
     all_days = list(set([row["weekday"] for row in all_clients]))
 
-    answer = {
-        "maria": " • Qual o prato mais pedido por 'Maria'?",
-        "arnaldo": " • Quantas vezes 'Arnaldo' pediu 'hamburguer'?",
-        "joao_n": " • Quais pratos 'João' nunca pediu?",
-        "joao_d": " • Quais dias 'Joao' nunca foi na lanchonete?",
+    def maria():
+        return txt_writing(
+            " • Qual o prato mais pedido por 'Maria'?",
+            most_frequent_maria(list_client),
+            path_write,
+        )
+
+    def arnaldo():
+        return txt_writing(
+            " • Quantas vezes 'Arnaldo' pediu 'hamburguer'?",
+            cont_frequent_arnaldo_lunch(all_lunch, list_client),
+            path_write,
+        )
+
+    def joao_never_ate():
+        return txt_writing(
+            " • Quais pratos 'João' nunca pediu?",
+            cont_frequent_joao(all_lunch, list_client, "lunch"),
+            path_write,
+        )
+
+    def joao_frequency_of_days():
+        return txt_writing(
+            " • Quais dias 'Joao' nunca foi na lanchonete?",
+            cont_frequent_joao(all_days, list_client, "weekday"),
+            path_write,
+        )
+
+    switcher = {
+        "maria": maria,
+        "arnaldo": arnaldo,
+        "joao_never_ate": joao_never_ate,
+        "joao_frequency_of_days": joao_frequency_of_days,
     }
 
-    try:
-        txt_writing(
-            answer["maria"],
-            most_frequent_maria(maria),
-        )
-
-        txt_writing(
-            answer["arnaldo"],
-            cont_frequent_arnaldo_lunch(all_lunch, arnaldo, "lunch"),
-        )
-
-        txt_writing(answer["joao_n"], cont_frequent_joao(all_lunch, joao, "lunch"))
-
-        txt_writing(answer["joao_d"], cont_frequent_joao(all_days, joao, "weekday"))
-
-    except ValueError:
-        raise
+    return switcher.get(person, lambda: "Cliente não cadastrado")()
 
 
-analyse_log("data/orders_1.csv")
+def analyse_log(path="data/mkt_campaign.txt"):
+    # all_clients = reading_the_main_file(path)
+
+    # maria = array_of_client(all_clients, "maria")
+    # arnaldo = array_of_client(all_clients, "arnaldo")
+    # joao = array_of_client(all_clients, "joao")
+
+    # all_lunch = list(set([row["lunch"] for row in all_clients]))
+
+    # all_days = list(set([row["weekday"] for row in all_clients]))
+
+    # answer = {
+    #     "maria": " • Qual o prato mais pedido por 'Maria'?",
+    #     "arnaldo": " • Quantas vezes 'Arnaldo' pediu 'hamburguer'?",
+    #     "joao_n": " • Quais pratos 'João' nunca pediu?",
+    #     "joao_d": " • Quais dias 'Joao' nunca foi na lanchonete?",
+    # }
+    clients = ["maria", "arnaldo", "joao_never_ate", "joao_frequency_of_days"]
+
+    for client in clients:
+        try:
+            format_answer_per_costumer(
+                client,
+                "data/orders_1.csv",
+                path,
+            )
+        except ValueError:
+            raise
+
+    pass
+
+
+analyse_log()
