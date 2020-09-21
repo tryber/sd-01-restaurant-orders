@@ -1,13 +1,6 @@
 class TrackOrders:
-    _file = "data/orders_2.csv"
-
-    def _reader(self):
-        from csv import DictReader
-
-        with open(self._file, "r") as csvfile:
-            fieldnames = ["costumer", "order", "day"]
-            reader = DictReader(csvfile, fieldnames=fieldnames)
-            return [row for row in reader]
+    def __init__(self):
+        self._array = list()
 
     def _writer(self, path, file):
         with open(path, "a") as txt_file:
@@ -15,7 +8,7 @@ class TrackOrders:
         return txt_file.close()
 
     def __factory(self, key, client):
-        all_customers = self._reader()
+        all_customers = self._array
 
         def __filter(x):
             return x["costumer"] == client
@@ -61,12 +54,11 @@ class TrackOrders:
         return answer_finally
 
     def add_new_order(self, costumer, order, day):
-        # new_register = f"{costumer},{order},{day}\n"
-        # return self._writer(self._file, new_register)
-        pass
+        costumer_order = dict(costumer=costumer, order=order, day=day)
+        self._array.append(costumer_order)
 
     def get_most_ordered_dish_per_costumer(self, costumer):
-        all_customers = self._reader()
+        all_customers = self._array
 
         def __filter(x):
             return x["costumer"] == costumer
@@ -109,8 +101,8 @@ class TrackOrders:
         return answer
 
 
-tester = TrackOrders()
+# tester = TrackOrders()
 
-values = tester.get_order_frequency_per_costumer("jose", "hamburguer")
+# values = tester.get_order_frequency_per_costumer("jose", "hamburguer")
 
-print(values)
+# print(values)

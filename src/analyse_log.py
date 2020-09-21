@@ -61,6 +61,10 @@ def reading_the_main_file(path):
         return [row for row in reader]
 
 
+def filter_all(key, clients):
+    return list(set([row[key] for row in clients]))
+
+
 def format_answer_per_costumer(
     person,
     path_reading,
@@ -71,9 +75,9 @@ def format_answer_per_costumer(
 
     list_client = array_of_client(all_clients, person)
 
-    all_lunch = list(set([row["lunch"] for row in all_clients]))
+    all_lunch = filter_all("lunch", all_clients)
 
-    all_days = list(set([row["weekday"] for row in all_clients]))
+    all_days = filter_all("weekday", all_clients)
 
     def maria():
         return txt_writing(
@@ -114,22 +118,7 @@ def format_answer_per_costumer(
 
 
 def analyse_log(path="data/mkt_campaign.txt"):
-    # all_clients = reading_the_main_file(path)
 
-    # maria = array_of_client(all_clients, "maria")
-    # arnaldo = array_of_client(all_clients, "arnaldo")
-    # joao = array_of_client(all_clients, "joao")
-
-    # all_lunch = list(set([row["lunch"] for row in all_clients]))
-
-    # all_days = list(set([row["weekday"] for row in all_clients]))
-
-    # answer = {
-    #     "maria": " • Qual o prato mais pedido por 'Maria'?",
-    #     "arnaldo": " • Quantas vezes 'Arnaldo' pediu 'hamburguer'?",
-    #     "joao_n": " • Quais pratos 'João' nunca pediu?",
-    #     "joao_d": " • Quais dias 'Joao' nunca foi na lanchonete?",
-    # }
     clients = ["maria", "arnaldo", "joao_never_ate", "joao_frequency_of_days"]
 
     for client in clients:
