@@ -5,17 +5,40 @@ list_client = ['maria', 'joao', 'arnaldo']
 list_days = ['segunda-feira', 'quarta-feira', 'terça-feira', 'quinta-feira', 'sexta-feira', 'domingo', 'sabado']
 
 
-def analyse_log(path_to_file='data/orders_2.csv'):
+def analyse_log(path_to_file='data/orders_1.csv'):
     data = import_data(path_to_file)
     # maria = group_type(data, 'maria', 'client')
     # allitems = cont_itens_all(maria, 'plate')
     # specify_item = cont_specify_item(maria, 'plate', 'hamburguer')
     # greater_value_plate = greater_value(maria, 'plate')
     # days = cont_itens_all(data, 'day')
-    joao = group_type(data, 'joao', 'client')
-    values = show_values(joao, 'plate')
-    diff = not_in_arr(list_plate, values)
-    return joao
+    # joao = group_type(data, 'joao', 'client')
+    # values = show_values(joao, 'plate')
+    # diff = not_in_arr(list_plate, values)
+
+# Qual o prato mais pedido por 'maria'?
+    cont_more_plate_maria = greater_value(
+        group_type(data, 'maria', 'client'),
+        'plate'
+        )
+    message_1 = f"Qual o prato mais pedido por 'maria'? {cont_more_plate_maria}"
+    print(message_1)
+# Quantas vezes 'arnaldo' pediu 'hamburguer'?
+    cont_arnaldo_hamburguer = cont_specify_item(
+        group_type(data, 'arnaldo', 'client'),
+        'plate',
+        'hamburguer'
+        )
+    message_2 = f"Quantas vezes 'arnaldo' pediu 'hamburguer'? {cont_arnaldo_hamburguer}"
+    print(message_2)
+# Quais pratos 'joao' nunca pediu?
+    show_plate_joao_dont_order = not_in_arr(list_plate, show_values(group_type(data, 'joao', 'client'), 'plate'))
+    message_3 = f"Quais pratos 'joao' nunca pediu? {show_plate_joao_dont_order}"
+    print(message_3)
+# Quais dias 'joao' nunca foi na lanchonete?
+    joao_dont_go = not_in_arr(list_days, show_values(group_type(data, 'joao', 'client'), 'day'))
+    message_4 = f"Quais dias 'joao' nunca foi na lanchonete? {joao_dont_go}"
+    print(message_4)
 
 
 def import_data(path):
@@ -78,7 +101,8 @@ def greater_value(data, type_filter):
 
 
 def cont_specify_item(data, type_filter, value):
+    if value not in cont_itens_all(data, type_filter):
+        return [value, 0]
     return cont_itens_all(data, type_filter)[value]
-
 
 print(analyse_log())
