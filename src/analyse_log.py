@@ -21,7 +21,7 @@ def get_all_dishes(arr):
     return new_set
 
 
-def days_joao_was_not_the_cafeteria(arr):
+def get_days_joao_was_not_the_cafeteria(arr):
     new_set = set()
     for element in arr:
         if element[0] == "joao":
@@ -29,7 +29,7 @@ def days_joao_was_not_the_cafeteria(arr):
     return days.difference(new_set)
 
 
-def dishes_joao_never_eated(arr):
+def get_dishes_joao_never_eated(arr):
     all_dishes = get_all_dishes(arr)
     dishes_joao_asked = set()
     for elements in arr:
@@ -54,7 +54,7 @@ def get_dishes_maria(arr):
     return food
 
 
-def number_times_arnold_eats_hamburguer(arr):
+def get_times_arnold_eats_hamburguer(arr):
     new_dict = {}
     most_frequent = 0
     for elements in arr:
@@ -80,12 +80,17 @@ def get_csv_data(path_to_file):
 
 def analyse_log(path_to_file="data/orders_1.csv"):
     data = get_csv_data(path_to_file)
-    first_answer = get_dishes_maria(data)
-    second_answer = number_times_arnold_eats_hamburguer(data)
-    test = dishes_joao_never_eated(data)
-    four = days_joao_was_not_the_cafeteria(data)
+    maria_dishes = get_dishes_maria(data)
+    times_arnold_eats_hamburguer = get_times_arnold_eats_hamburguer(data)
+    dishes_joao_never_eated = get_dishes_joao_never_eated(data)
+    days_joao_was_not_the_cafeteria = get_days_joao_was_not_the_cafeteria(data)
 
-    print(first_answer, second_answer, test, four)
+    print(
+        maria_dishes,
+        times_arnold_eats_hamburguer,
+        dishes_joao_never_eated,
+        days_joao_was_not_the_cafeteria,
+    )
 
 
 analyse_log()
