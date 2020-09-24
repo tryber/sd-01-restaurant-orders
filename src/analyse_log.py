@@ -82,7 +82,7 @@ def save_log_in_file(arr):
     with open("arquivo.txt", "w") as file:
         for line in arr:
             file.write(str(line) + "\n")
-    file.closed
+    file.closed()
 
 
 def analyse_log(path_to_file="data/orders_1.csv"):
