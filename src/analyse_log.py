@@ -78,18 +78,26 @@ def get_csv_data(path_to_file):
     return data
 
 
+def save_log_in_file(arr):
+    with open("arquivo.txt", "w") as file:
+        for line in arr:
+            file.write(str(line) + "\n")
+    file.closed
+
+
 def analyse_log(path_to_file="data/orders_1.csv"):
     data = get_csv_data(path_to_file)
     maria_dishes = get_dishes_maria(data)
     times_arnold_eats_hamburguer = get_times_arnold_eats_hamburguer(data)
     dishes_joao_never_eated = get_dishes_joao_never_eated(data)
     days_joao_was_not_the_cafeteria = get_days_joao_was_not_the_cafeteria(data)
-
-    print(
-        maria_dishes,
-        times_arnold_eats_hamburguer,
-        dishes_joao_never_eated,
-        days_joao_was_not_the_cafeteria,
+    save_log_in_file(
+        [
+            maria_dishes,
+            times_arnold_eats_hamburguer,
+            dishes_joao_never_eated,
+            days_joao_was_not_the_cafeteria,
+        ]
     )
 
 
