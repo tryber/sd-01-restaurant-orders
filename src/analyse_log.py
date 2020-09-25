@@ -2,12 +2,9 @@ from csv import DictReader
 
 
 def f_frequency(keys, client, params_map_key):
-    frequency = {k: 0 for k in keys}
+    frequency = {k: 0 for k in sorted(keys)}
     for all_days in client:
-        if all_days[params_map_key] not in frequency:
-            frequency[all_days[params_map_key]] = 1
-        else:
-            frequency[all_days[params_map_key]] += 1
+        frequency[all_days[params_map_key]] += 1
     return frequency
 
 
@@ -20,8 +17,8 @@ def most_frequent_maria(client):
         else:
             frequency[lunch["lunch"]] += 1
 
-        if frequency[lunch["lunch"]] > frequency[most_frequent_lunch]:
-            most_frequent_lunch = lunch["lunch"]
+        # if frequency[lunch["lunch"]] > frequency[most_frequent_lunch]:
+        #     most_frequent_lunch = lunch["lunch"]
     return most_frequent_lunch
 
 
@@ -102,7 +99,7 @@ def format_answer_per_costumer(
 
     def joao_frequency_of_days():
         return txt_writing(
-            " • Quais dias 'Joao' nunca foi na lanchonete?",
+            " • Quais dias 'João' nunca foi na lanchonete?",
             cont_frequent_joao(all_days, list_client, "weekday"),
             path_write,
         )
@@ -130,8 +127,4 @@ def analyse_log(path="data/mkt_campaign.txt"):
             )
         except ValueError:
             raise
-
-    pass
-
-
-analyse_log()
+    return None
