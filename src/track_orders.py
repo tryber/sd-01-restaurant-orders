@@ -2,10 +2,10 @@ class TrackOrders:
     def __init__(self):
         self._array = list()
 
-    def _writer(self, path, file):
-        with open(path, "a") as txt_file:
-            txt_file.write(file)
-        return txt_file.close()
+    # def _writer(self, path, file):
+    #     with open(path, "a") as txt_file:
+    #         txt_file.write(file)
+    #     return txt_file.close()
 
     def __factory(self, key, client):
         all_customers = self._array
@@ -19,6 +19,7 @@ class TrackOrders:
         }
 
     def __most_frequent_client(self, client):
+
         most_frequent_lunch = client[0]["order"]
         frequency = {}
         for lunch in client:
@@ -32,7 +33,7 @@ class TrackOrders:
         return most_frequent_lunch
 
     def _frequency_order(self, keys, client):
-        frequency = {k: 0 for k in keys}
+        frequency = {k: 0 for k in sorted(keys)}
         for all_orders in client:
             if all_orders["order"] not in frequency:
                 frequency[all_orders["order"]] = 1
@@ -64,6 +65,7 @@ class TrackOrders:
             return x["costumer"] == costumer
 
         costumer_list = list(filter(__filter, all_customers))
+
         answer = f"""O prato favorito do/a {costumer.capitalize()} é o:
 {self.__most_frequent_client(costumer_list)}"""
         return answer

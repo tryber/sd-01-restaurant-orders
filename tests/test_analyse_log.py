@@ -1,6 +1,4 @@
-from unittest.mock import patch, mock_open, create_autospec, Mock
-
-# from unittest import TestCase
+from unittest.mock import patch, mock_open
 from src.analyse_log import analyse_log
 
 
