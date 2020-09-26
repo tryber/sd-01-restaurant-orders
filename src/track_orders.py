@@ -1,12 +1,15 @@
 class TrackOrders:
-    # def add_new_order(self, costumer, order, day):
-    #     pass
+    def __init__(self):
+        self._data = []
 
-    def get_most_ordered_dish_per_costumer(self, costumer, filter_data):
-        most_frequent_food = filter_data[0][1]
+    def add_new_order(self, costumer, order, day):
+        self._data.append([costumer, order, day])
+
+    def get_most_ordered_dish_per_costumer(self, costumer):
+        most_frequent_food = self._data[0][1]
         frequency = {}
 
-        for food in filter_data:
+        for food in self._data:
 
             index_food = food[1]
 
@@ -21,42 +24,42 @@ class TrackOrders:
 
         return f"Prato favorito do(a) cliente {costumer}: {most_frequent_food}"
 
-    def get_order_frequency_per_costumer(self, costumer, order, filter_data):
+    def get_order_frequency_per_costumer(self, costumer, order):
         frequency = {'hamburguer': 0, 'pizza': 0, 'coxinha': 0, 'misto-quente': 0}
 
-        for food in filter_data:
+        for food in self._data:
             index_food = food[1]
             frequency[index_food] += 1
 
         return f"Pedido mais frequente do(a) cliente {costumer}: {frequency[order]}"
 
-    def get_never_ordered_per_costumer(self, filter_data):
+    def get_never_ordered_per_costumer(self, costumer):
         frequency = set()
         products = set({'hamburguer', 'pizza', 'coxinha', 'misto-quente'})
 
-        for food in filter_data:
+        for food in self._data:
             frequency.add(food[1])
 
-        return f"Pedido nunca pedido pelo(a) cliente {filter_data[0][0]}: {products.difference(frequency)}"
+        return f"Pedido nunca pedido pelo(a) cliente {self._data[0][0]}: {products.difference(frequency)}"
 
-    def get_days_most_visited_per_costumer(self, filter_data):
+    def get_days_most_visited_per_costumer(self, costumer):
         present_days = []
         days = ['segunda-feira', 'terça-feira', 'sabado']
         days_set = set(days)
 
-        for food in filter_data:
+        for food in self._data:
             present_days.append(food[2])
 
         present_days_set = set(present_days)
-        return f"Dia(s) mais visitado(s) pelo(a) cliente {filter_data[0][0]}: {days_set.intersection(present_days_set)}"
+        return f"Dia(s) mais visitado(s) pelo(a) cliente {self._data[0][0]}: {days_set.intersection(present_days_set)}"
 
-    def get_days_never_visited_per_costumer(self, filter_data):
+    def get_days_never_visited_per_costumer(self, costumer):
         present_days = []
         days = ['segunda-feira', 'terça-feira', 'sabado']
         days_set = set(days)
 
-        for food in filter_data:
+        for food in self._data:
             present_days.append(food[2])
 
         present_days_set = set(present_days)
-        return f"Dia(s) menos visitado(s) pelo(a) cliente {filter_data[0][0]}: {days_set.difference(present_days_set)}"
+        return f"Dia(s) menos visitado(s) pelo(a) cliente {self._data[0][0]}: {days_set.difference(present_days_set)}"
