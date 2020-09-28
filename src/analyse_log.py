@@ -72,6 +72,7 @@ def get_csv_data(path_to_file):
     new_data = []
     with open(path_to_file, "r", encoding="utf-8-sig") as csv_file:
         readCSV = csv.reader(csv_file, delimiter=",")
+        print(readCSV)
         header, *data = readCSV
         for values in data:
             new_data.append(values)
@@ -99,6 +100,3 @@ def analyse_log(path_to_file="data/orders_1.csv"):
             days_joao_was_not_the_cafeteria,
         ]
     )
-
-
-analyse_log()

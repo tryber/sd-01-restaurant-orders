@@ -22,10 +22,10 @@ maria,coxinha,segunda-feira
 arnaldo,misto-quente,terça-feira"""
 
     result_test = [
-        " • Qual o prato mais pedido por 'Maria'? hamburguer \n",
-        " • Quantas vezes 'Arnaldo' pediu 'hamburguer'? foram 0 hamburguer,  \n",
-        " • Quais pratos 'João' nunca pediu?  coxinha, hamburguer, misto-quente, pizza,  \n",
-        " • Quais dias 'João' nunca foi na lanchonete?  sabado, segunda-feira, terça-feira,  \n",
+        "hamburguer \n",
+        "0",
+        {'coxinha', 'hamburguer', 'misto-quente', 'pizza'},
+        {'segunda-feira', 'sabado', 'quinta-feira', 'domingo', 'quarta-feira', 'sexta-feira'},
     ]
 
     def test_analyse_log_if_it_is_working_correctly(self):

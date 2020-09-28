@@ -77,45 +77,29 @@ maria,pizza,terça-feira"""
     def test_get_most_ordered_dish_per_costumer(self):
         self.__reading_the_main_file()
         expected = self.tracker.get_most_ordered_dish_per_costumer("maria")
-        received = """O prato favorito do/a Maria é o:
-pizza"""
-        print("#-" * 45)
-        print(expected)
-        print("#-" * 45)
+        received = "pizza"
         assert expected == received
 
     def test_get_order_frequency_per_costumer_true(self):
         self.__reading_the_main_file()
-        expected = self.tracker.get_order_frequency_per_costumer("jose", "hamburguer")
-        received = """O/A Jose consumiu:
-12 hamburguer no total"""
-        assert expected == received
-
-    def test_get_order_frequency_per_costumer_false(self):
-        self.__reading_the_main_file()
-        expected = self.tracker.get_order_frequency_per_costumer("jose", "arroz")
-        received = """O prato não existe!"""
-        print("#-" * 45)
-        print(expected)
-        print("#-" * 45)
+        expected = self.tracker.get_dish_quantity_per_costumer("arnaldo", 'hamburguer')
+        received = 0
         assert expected == received
 
     def test_get_never_ordered_per_costumer(self):
         self.__reading_the_main_file()
         expected = self.tracker.get_never_ordered_per_costumer("joao")
-        received = """Joao nunca pediu:
-coxinha, misto-quente e pizza."""
-        print("#-" * 45)
-        print(expected)
-        print("#-" * 45)
+        received = {'coxinha', 'misto-quente', 'pizza'}
         assert expected == received
 
-    def test_get_days_never_visited_per_costumer(self):
+    def test_get_busiest_day(self):
         self.__reading_the_main_file()
-        expected = self.tracker.get_days_never_visited_per_costumer("arnaldo")
-        received = """Arnaldo nunca foi nos dias:
-sabado, segunda-feira e terça-feira."""
-        print("#-" * 45)
-        print(expected)
-        print("#-" * 45)
+        expected = self.tracker.get_busiest_day()
+        received = "terça-feira"
+        assert expected == received
+
+    def test_get_least_busy_day(self):
+        self.__reading_the_main_file()
+        expected = self.tracker.get_least_busy_day()
+        received = "sabado"
         assert expected == received

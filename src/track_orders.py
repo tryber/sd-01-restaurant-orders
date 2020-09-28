@@ -19,6 +19,7 @@ class TrackOrders:
     def get_most_ordered_dish_per_costumer(self, costumer):
         client_and_dishe_favoricted = {}
         most_frequent = 0
+        dish_name = ""
         for elements in self.data:
             if elements[0] == costumer:
                 if elements[1] in client_and_dishe_favoricted:
@@ -27,7 +28,8 @@ class TrackOrders:
                     client_and_dishe_favoricted[elements[1]] = 1
                 if client_and_dishe_favoricted[elements[1]] > most_frequent:
                     most_frequent = client_and_dishe_favoricted[elements[1]]
-        return most_frequent
+                    dish_name = elements[1]
+        return dish_name
 
     def get_dish_quantity_per_costumer(self, costumer, order):
         new_dict = {}
