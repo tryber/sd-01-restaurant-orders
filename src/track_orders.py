@@ -53,7 +53,7 @@ class TrackOrders:
     def get_busiest_day(self):
         new_dict = {}
         most_frequent = 0
-        dish_name = ''
+        dish_name = ""
         for elements in self.data:
             if elements[2] in new_dict:
                 new_dict[elements[2]] += 1
