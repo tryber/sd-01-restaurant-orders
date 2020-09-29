@@ -84,7 +84,7 @@ def analyse_log(path_to_file, plate_favorite_customer, order, plates_orders_cust
     print(plates_not_orders)
     print(days_not_present)
 
-    with open('../data/mkt_campaign.txt', 'w', newline='') as file:
+    with open('data/mkt_campaign.txt', 'w', newline='') as file:
 
         file.write(f"O prato mais pedido por {plate_favorite_customer}: {food_more_order}\n")
         file.write(f"A quantidade de vezes que {order[0]} pediu {order[1]} foi: {food_order_total}\n")
@@ -92,4 +92,4 @@ def analyse_log(path_to_file, plate_favorite_customer, order, plates_orders_cust
         file.write(f"O(A) {absent_person} nunca foi na lanchonete no(s) dia(s): {days_not_present}\n")
 
 
-analyse_log('../data/orders_1.csv', "maria", ["arnaldo", "hamburguer"], "joao", "joao")
+analyse_log('data/orders_1.csv', "maria", ["arnaldo", "hamburguer"], "joao", "joao")

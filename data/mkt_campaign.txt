@@ -1,4 +1,4 @@
 O prato mais pedido por maria: hamburguer
 A quantidade de vezes que arnaldo pediu hamburguer foi: 0
-O(A) joao nunca pediu: {'pizza', 'misto-quente', 'coxinha'}
-O(A) joao nunca foi na lanchonete no(s) dia(s): {'segunda-feira', 'sabado'}
+O(A) joao nunca pediu: {'pizza', 'coxinha', 'misto-quente'}
+O(A) joao nunca foi na lanchonete no(s) dia(s): {'sabado', 'segunda-feira'}
