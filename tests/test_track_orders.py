@@ -81,7 +81,7 @@ maria,pizza,terça-feira"""
     def test_get_order_frequency_per_costumer_true(self):
         self.__reading_the_main_file()
         expected = self.tracker.get_order_frequency_per_costumer("arnaldo", "hamburguer")
-        received = "Quantidade de pedidos de hamburguer feito pelo/a cliente arnaldo: 32"
+        received = "Quantidade de pedidos de hamburguer feito pelo/a cliente Arnaldo: 32"
         assert expected == received
 
     def test_get_never_ordered_per_costumer(self):
