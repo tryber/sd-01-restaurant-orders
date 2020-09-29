@@ -70,10 +70,6 @@ maria,pizza,terça-feira"""
                 costumer, order, day = k.get("costumer"), k.get("order"), k.get("day")
                 self.tracker.add_new_order(costumer, order, day)
 
-    def test_add_new_order_and_property(self):
-        self.__reading_the_main_file()
-        assert len(self.tracker._array) == 37
-
     def test_get_most_ordered_dish_per_costumer(self):
         self.__reading_the_main_file()
         expected = self.tracker.get_most_ordered_dish_per_costumer("maria")

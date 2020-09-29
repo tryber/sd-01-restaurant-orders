@@ -68,26 +68,24 @@ def get_times_arnold_eats_hamburguer(arr):
     return most_frequent
 
 
-def get_csv_data(path_to_file):
-    new_data = []
-    with open(path_to_file, "r", encoding="utf-8-sig") as csv_file:
-        readCSV = csv.reader(csv_file, delimiter=",")
-        print(readCSV)
-        header, *data = readCSV
-        for values in data:
-            new_data.append(values)
-    return data
+class SomeThing():
+    def get_csv_data(path_to_file):
+        new_data = []
+        with open(path_to_file, "r", encoding="utf-8-sig") as csv_file:
+            readCSV = csv.reader(csv_file, delimiter=",")
+            for values in readCSV:
+                new_data.append(values)
+        return new_data
 
 
 def save_log_in_file(arr):
     with open("arquivo.txt", "w") as file:
         for line in arr:
             file.write(str(line) + "\n")
-    file.closed()
 
 
 def analyse_log(path_to_file="data/orders_1.csv"):
-    data = get_csv_data(path_to_file)
+    data = SomeThing.get_csv_data(path_to_file)
     maria_dishes = get_dishes_maria(data)
     times_arnold_eats_hamburguer = get_times_arnold_eats_hamburguer(data)
     dishes_joao_never_eated = get_dishes_joao_never_eated(data)
@@ -100,3 +98,6 @@ def analyse_log(path_to_file="data/orders_1.csv"):
             days_joao_was_not_the_cafeteria,
         ]
     )
+
+
+analyse_log()
