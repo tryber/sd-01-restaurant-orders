@@ -1,4 +1,4 @@
 ﻿Qual o prato mais pedido por 'maria'? ['hamburguer', 16]
 Quantas vezes 'arnaldo' pediu 'hamburguer'? ['hamburguer', 0]
 Quais pratos 'joao' nunca pediu? {'coxinha', 'pizza', 'misto-quente'}
-Quais dias 'joao' nunca foi na lanchonete? {'sabado', 'quinta-feira', 'domingo', 'quarta-feira', 'sexta-feira', 'segunda-feira'}
+Quais dias 'joao' nunca foi na lanchonete? {'domingo', 'quarta-feira', 'sabado', 'quinta-feira', 'sexta-feira', 'segunda-feira'}

@@ -1,4 +1,6 @@
-from service import greater_value, group_type, cont_specify_item, not_in_arr, show_values, list_plate, list_days
+from serv.service import Services
+
+func_services = Services()
 
 
 class TrackOrders:
@@ -10,13 +12,19 @@ class TrackOrders:
         self._orders.append(costumer_order)
 
     def get_most_ordered_dish_per_costumer(self, costumer):
-        return greater_value(group_type(self._orders, costumer, 'costumer'), 'order')
+        return func_services.greater_value(func_services.group_type(self._orders, costumer, 'costumer'), 'order')
 
     def get_order_frequency_per_costumer(self, costumer, order):
-        return cont_specify_item(group_type(self._orders, costumer, 'costumer'), 'order', order)
+        return func_services.cont_specify_item(func_services.group_type(self._orders, costumer, 'costumer'), 'order', order)
 
     def get_never_ordered_per_costumer(self, costumer):
-        return not_in_arr(list_plate, show_values(group_type(self._orders, costumer, 'costumer'), 'order'))
+        return func_services.not_in_arr(func_services.list_plate, func_services.show_values(func_services.group_type(self._orders, costumer, 'costumer'), 'order'))
 
     def get_days_never_visited_per_costumer(self, costumer):
-        return not_in_arr(list_days, show_values(group_type(self._orders, costumer, 'costumer'), 'day'))
+        return func_services.not_in_arr(func_services.list_days, func_services.show_values(func_services.group_type(self._orders, costumer, 'costumer'), 'day'))
+
+    def get_busiest_day(self):
+        return func_services.greater_value(self._orders, 'day')
+
+    def get_least_busy_day(self):
+        return func_services.array_lasted(func_services.cont_itens_all(self._orders, 'day'))
